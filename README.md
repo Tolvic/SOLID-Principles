@@ -13,7 +13,35 @@ Breaking different logical areas of responsibility out into separate classes/met
 * testability
 
 
-## Open Close Principle 
+## Open Closed Principle 
+Entities (classes or methods) should be Open for extension, but Closed for modification.
+
+Once complete, classes should only be modified to correct bugs. New features should be added by creating new classes or methods, and inheritance or composition can be used to re-use the existing features.
+
+This helps to prevent "breaking changes" and reduces the need to regression test; changes should not impact existing uses of the code.
+
+### Example
+The below example is sudo code. In this example we have a method within an Alarm class that sounds an alarm at a set time every day.
+
+```csharp
+setAlarm(alarmTime){
+  if(time.now == alarmTime){
+    playSound();
+  }
+}
+```
+
+If our requirements changeand we only want to play the alarm if it's a week day, rather than modifying the method defined above, we could instead write a new method to call the 'setAlarm' if it is a weekday.
+
+```csharp
+weekdayAlarm(alarmTime){
+  if(isWeekday(day.now)){
+    setAlarm(alarmTime);
+  }
+}
+```
+
+Extending the functionality of this alarm class rather than modifying the `setAlarm` method means that there is no risk that we make breaking changes to other parts of the code base. 
 
 ## Liskov Substitution Principle 
 
