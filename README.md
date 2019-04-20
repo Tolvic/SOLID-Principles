@@ -56,7 +56,26 @@ Code that does not adhere to the LSP is tightly coupled, creates unnecessary ent
 
 When a subclass can not substitue its parent class there would have to be multiple conditional statements to determine the class or type to handle certain cases differently. If there are changes that is required then these changes would have to be applied in multiple places. Furthermore, the entanglement that is created can lead to unanticipated behaviors.
 
-## Interface Sgregation Principle 
+## Interface Segregation Principle
+Many client-specific interfaces are better than one general-purpose interface.
+
+the Interface Segregation Principles splits interfaces that are very large into smaller and more specific ones so that clients will only have to know about the methods that are of interest to them.
+
+Interfaces should be tailored to a specific purpose and be as small and simple as possible. It is possible for a class to implement multiple interfaces, so there is no need to create large, complex multi-purpose interfaces - all this does is hamper reuse and increase the likelihood that a change will have a "ripple effect".
+
+"Favour composition over inheritance" - if some part of the interface might be used in isolation from the rest, it should be a separate interface to allow this.
+
+This principle keeps a system decoupled and thus easier to refactor, change, and redeploy
+
+A basic example would be where you have an `Athlete` interface with methods for `swim`, `highjump` `sprint`, etc.
+
+By implementing the `Athlete` interface for a `Swimmer`, they would have to implement methods for all of the above even though they are not campable of performing them.
+
+Instead, there should be interfaces such as:
+* `Swimmer`
+* `Sprinter`
+* `HighJumper`
+* etc.
 
 ## Dependency Inversion
 
