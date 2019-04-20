@@ -31,7 +31,7 @@ setAlarm(alarmTime){
 }
 ```
 
-If our requirements changeand we only want to play the alarm if it's a week day, rather than modifying the method defined above, we could instead write a new method to call the 'setAlarm' if it is a weekday.
+If our requirements changeand we only want to play the alarm if it's a week day, rather than modifying the method defined above, we could instead write a new method to call the `setAlarm` if it is a weekday.
 
 ```csharp
 weekdayAlarm(alarmTime){
