@@ -44,6 +44,17 @@ weekdayAlarm(alarmTime){
 Extending the functionality of this alarm class rather than modifying the `setAlarm` method means that there is no risk that we make breaking changes to other parts of the code base. 
 
 ## Liskov Substitution Principle 
+Classes should be replaceable with instances of their subtypes without altering the behaviour of the application.
+
+If `RedCar` inherits from `Car`, they should both Accelerate the same way. This will allow intances of `Car` to be replaced with `redCar`
+
+If a class is extended/inherited, base methods should still do what they used to do. If you override the way a method functions you introduce unpredictability into the system.
+
+Code that adheres to LSP is loosely dependent to each other and encourages code reusability. 
+
+Code that does not adhere to the LSP is tightly coupled, creates unnecessary entanglements and can lead to unanticipated behaviours. 
+
+When a subclass can not substitue its parent class there would have to be multiple conditional statements to determine the class or type to handle certain cases differently. If there are changes that is required then these changes would have to be applied in multiple places. Furthermore, the entanglement that is created can lead to unanticipated behaviors.
 
 ## Interface Sgregation Principle 
 
