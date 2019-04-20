@@ -2,6 +2,16 @@
 The Solid Principles are a set of 5 design principles in object orientated programming intended to make software design more understandable. flexible and maintainable.
 
 ## Single Responsibility Principle
+A class of a method should have a single responsibilty; it should do one thing only. 
+
+If a class or method has multiple responsibilities it becomes difficult to navigate and understand. The wider the scope of responsibilities a class or method attempts to cover, the more complex, coupled and difficult to maintain and test it will become.
+
+Breaking different logical areas of responsibility out into separate classes/methods improves:
+* readability
+* maintainability
+* simplicity
+* testability
+
 
 ## Open Close Principle 
 
