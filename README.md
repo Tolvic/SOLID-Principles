@@ -78,6 +78,119 @@ Instead, there should be interfaces such as:
 * etc.
 
 ## Dependency Inversion
+High-level modules, which provide complex logic, should be easily reusable and unaffected by changes in low-level modules, which provide utility features. To achieve that, you need to introduce an abstraction that decouples the high-level and low-level modules from each other.
+
+The principle consists of two parts:
+1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+2. Abstractions should not depend on details. Details should depend on abstractions.
+
+Take a notifications client; we want to be able send both email and SMS text notifications:
+
+```csharp
+public class Email
+{
+    public string ToAddress { get; set; }
+    public string Subject { get; set; }
+    public string Content { get; set; }
+    public void SendEmail()
+    {
+        //Send email
+    }
+}
+
+public class SMS
+{
+    public string PhoneNumber { get; set; }
+    public string Message { get; set; }
+    public void SendSMS()
+    {
+        //Send sms
+    }
+}
+
+public class Notification
+{
+    private Email _email;
+    private SMS _sms;
+    public Notification()
+    {
+        _email = new Email();
+        _sms = new SMS();
+    }
+
+    public void Send()
+    {
+        _email.SendEmail();
+        _sms.SendSMS();
+    }
+}
+```
+
+Notice that the `Notification` class (a higher-level class) has a dependency on both the `Email` class and the `SMS` class (lower-level classes).
+
+`Notification` is depending on the concrete implementation of both `Email` and `SMS`; not an abstraction of said implementation.  However the Dependency Inversion principle requires both high and low-level classes to depend on abstractions.
+
+`Email` and `SMS` have high-coupling. Generally speaking, the more instances of new keyword you have, the more tightly coupled your code is.
+
+To reduce this dependency, wecan introduce an abstraction: one that `Notification` can rely on and that `Email` and `SMS`can implement.
+
+```csharp
+public interface IMessage
+{
+    void SendMessage();
+}
+```
+
+Next, Email and SMS can implement the IMessage interface:
+
+```csharp
+public class Email : IMessage
+{
+    public string ToAddress { get; set; }
+    public string Subject { get; set; }
+    public string Content { get; set; }
+    public void SendMessage()
+    {
+        //Send email
+    }
+}
+
+public class SMS : IMessage
+{
+    public string PhoneNumber { get; set; }
+    public string Message { get; set; }
+    public void SendMessage()
+    {
+        //Send sms
+    }
+}
+```
+
+Finally, we can make Notification depend on the abstraction IMessage rather than its concrete implementations:
+
+```csharp
+public class Notification
+{
+    private ICollection<IMessage> _messages;
+
+    public Notification(ICollection<IMessage> messages)
+    {
+        this._messages = messages;
+    }
+    public void Send()
+    {
+        foreach(var message in _messages)
+        {
+            message.SendMessage();
+        }
+    }
+}
+```
+
+With this refactoring, all Notification cares about is that there's an abstraction (the interface IMessage) that can actually send the notification, so it just calls that and calls it a day.
+
+In short, we have allowed both high-level and low-level classes to rely on abstractions
+
 
 ## Appendix
 The below are definitions for terms that came up during my research and study of the SOLID Principles
