@@ -238,6 +238,8 @@ Benefits of using Interfaces:
 
 
 ### Abstration
+Abstract classes are base methods that other classes inherit from. Abstract classess can not be initilize. Athlete may know a compete method which Swimmer would inherit from. 
+
 
 ### Entities
 
